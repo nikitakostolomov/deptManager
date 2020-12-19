@@ -28,7 +28,7 @@ public class Person {
 
     private String login;
 
-//    private Boolean isAdmin;
+    private Boolean isAdmin;
 
     @OneToMany(mappedBy = "person")
     private List<GroupPersonLink> groupsList;

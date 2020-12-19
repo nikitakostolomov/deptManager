@@ -14,7 +14,7 @@ spring:
           use_jdbc_metadata_defaults: false
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
 
 logging:
   level:
