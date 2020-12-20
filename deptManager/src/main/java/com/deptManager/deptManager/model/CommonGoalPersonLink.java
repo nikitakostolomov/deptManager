@@ -16,12 +16,12 @@ public class CommonGoalPersonLink {
     private CommonGoalPersonLinkKey id;
 
     @ManyToOne
-    @MapsId("person_id")
+    @MapsId("personId")
     @JoinColumn(name = "person_id")
     private Person person;
 
     @ManyToOne
-    @MapsId("common_goal_id")
+    @MapsId("commonGoalId")
     @JoinColumn(name = "common_goal_id")
     private CommonGoal commonGoal;
 

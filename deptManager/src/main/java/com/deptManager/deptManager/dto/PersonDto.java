@@ -11,9 +11,9 @@ public class PersonDto {
 
     private UUID id;
 
-    private String first_name;
+    private String firstName;
 
-    private String last_name;
+    private String lastName;
 
     private String login;
 

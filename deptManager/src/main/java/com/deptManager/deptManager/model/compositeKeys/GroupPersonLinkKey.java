@@ -14,8 +14,8 @@ import java.util.UUID;
 @Builder(toBuilder = true)
 public class GroupPersonLinkKey implements Serializable {
 
-    private UUID person_id;
+    private UUID personId;
 
-    private UUID group_id;
+    private UUID groupId;
 }
 

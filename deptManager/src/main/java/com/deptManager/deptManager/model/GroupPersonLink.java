@@ -16,12 +16,12 @@ public class GroupPersonLink {
     private GroupPersonLinkKey id = new GroupPersonLinkKey();
 
     @ManyToOne
-    @MapsId("person_id")
+    @MapsId("personId")
     @JoinColumn(name = "person_id")
     private Person person;
 
     @ManyToOne
-    @MapsId("group_id")
+    @MapsId("groupId")
     @JoinColumn(name = "group_id")
     private Groups group;
 

@@ -2,6 +2,7 @@ package com.deptManager.deptManager.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -27,6 +28,7 @@ public class Groups {
     private List<CommonGoal> commonGoals;
 
     @OneToMany(mappedBy = "group")
+    @Cascade(value = org.hibernate.annotations.CascadeType.DELETE)
     private List<GroupPersonLink> participantsList = new ArrayList<>();
 
 }

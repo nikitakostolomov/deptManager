@@ -1,6 +1,7 @@
 package com.deptManager.deptManager.model;
 
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -23,9 +24,9 @@ public class Person {
     @Column(nullable = false, updatable = false)
     private UUID id;
 
-    private String first_name;
+    private String firstName;
 
-    private String last_name;
+    private String lastName;
 
     private String password;
 
@@ -34,6 +35,7 @@ public class Person {
     private Boolean isAdmin;
 
     @OneToMany(mappedBy = "person")
+    @Cascade(value = org.hibernate.annotations.CascadeType.DELETE)
     private List<GroupPersonLink> groupsList = new ArrayList<>();
 
 }

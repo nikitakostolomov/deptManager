@@ -7,10 +7,9 @@ import com.deptManager.deptManager.service.GroupsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -22,5 +21,36 @@ public class GroupsController {
     @PostMapping
     public GroupDto createNewGroup(@RequestParam String name, Authentication authentication) {
         return DtoMapper.convertToClass(groupsService.createGroup(name, authentication), GroupDto.class);
+    }
+
+
+    @PostMapping(RequestInfo.GROUP_ID)
+    public GroupDto addUserToGroup(@PathVariable UUID groupId, @RequestParam UUID personId,
+                                   Authentication authentication) {
+        return DtoMapper.convertToClass(groupsService.addPersonToGroup(groupId, personId, authentication), GroupDto.class);
+    }
+
+    @GetMapping(RequestInfo.GROUP_ID)
+    public GroupDto getGroup(@PathVariable UUID groupId,
+                                   Authentication authentication) {
+        return DtoMapper.convertToClass(groupsService.getGroupById(groupId, authentication), GroupDto.class);
+    }
+
+    @DeleteMapping(RequestInfo.GROUP_ID)
+    public void deleteGroup(@PathVariable UUID groupId,
+                                   Authentication authentication) {
+        groupsService.deleteGroup(groupId, authentication);
+    }
+
+    @DeleteMapping(RequestInfo.GROUP_ID + RequestInfo.PERSON)
+    public GroupDto deletePersonFromGroup(@PathVariable UUID groupId, @RequestParam UUID personId,
+                            Authentication authentication) {
+        return DtoMapper.convertToClass(groupsService.deletePersonFromGroup(groupId, personId, authentication), GroupDto.class);
+    }
+
+    @PutMapping(RequestInfo.GROUP_ID)
+    public GroupDto renameGroup(@PathVariable UUID groupId, @RequestParam String newName,
+                            Authentication authentication) {
+        return DtoMapper.convertToClass(groupsService.renameGroup(groupId, newName, authentication), GroupDto.class);
     }
 }

@@ -8,6 +8,8 @@ public class RequestInfo {
     public static final String GROUPS = "/groups";
     public static final String PERSON = "/person";
 
+    public static final String GROUP_ID = "/{groupId}";
+
     public static final String DEFAULT_OFFSET = "0";
     public static final String DEFAULT_LIMIT = "20";
     public static final String DEFAULT_SEARCH_VALUE = "";

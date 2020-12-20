@@ -14,7 +14,7 @@ import java.util.UUID;
 @Builder(toBuilder = true)
 public class CommonGoalPersonLinkKey implements Serializable {
 
-    private UUID person_id;
+    private UUID personId;
 
-    private UUID common_goal_id;
+    private UUID commonGoalId;
 }
