@@ -2,6 +2,7 @@ package com.deptManager.deptManager.controller;
 
 
 import com.deptManager.deptManager.common.RequestInfo;
+import com.deptManager.deptManager.dto.PersonRegisterDto;
 import com.deptManager.deptManager.security.AuthentificationRequest;
 import com.deptManager.deptManager.service.LoginService;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +24,13 @@ public class LoginController {
     private final LoginService loginService;
 
     @PostMapping
-    public ResponseEntity<?> generateAuthenticationToken(@RequestBody AuthentificationRequest authenticationRequest) throws Exception {
+    public ResponseEntity<?> generateAuthenticationToken(@RequestBody AuthentificationRequest authenticationRequest) {
         return loginService.generateToken(authenticationRequest);
+    }
+
+    @PostMapping(RequestInfo.REGISTER)
+    public ResponseEntity<?> registerPerson(@RequestBody PersonRegisterDto personRegisterDto) {
+        return loginService.registerPerson(personRegisterDto);
     }
 
 

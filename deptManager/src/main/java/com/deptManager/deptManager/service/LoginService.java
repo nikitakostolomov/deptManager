@@ -1,7 +1,9 @@
 package com.deptManager.deptManager.service;
 
+import com.deptManager.deptManager.dto.PersonRegisterDto;
 import com.deptManager.deptManager.exceptions.GeneralException;
 import com.deptManager.deptManager.model.Person;
+import com.deptManager.deptManager.repositories.PersonRepository;
 import com.deptManager.deptManager.security.AuthenticationResponse;
 import com.deptManager.deptManager.security.AuthentificationRequest;
 import com.deptManager.deptManager.security.JwtUserService;
@@ -29,6 +31,9 @@ public class LoginService {
 
     private final JwtUserService jwtUserService;
 
+    private final PersonService personService;
+
+
     public ResponseEntity<?> generateToken(AuthentificationRequest authenticationRequest) {
         try {
             authenticationManager.authenticate(
@@ -40,6 +45,11 @@ public class LoginService {
         final UserDetails userDetails = jwtUserService.loadUserByUsername(authenticationRequest.getLogin());
         final String jwt = jwtUtil.generateToken(userDetails);
         return ResponseEntity.ok(new AuthenticationResponse(jwt, userDetails.getAuthorities()));
+    }
+
+    public ResponseEntity<?> registerPerson(PersonRegisterDto personRegisterDto) {
+        Person createdPerson = personService.registerPerson(personRegisterDto);
+        return generateToken(new AuthentificationRequest(createdPerson.getLogin(), personRegisterDto.getPassword()));
     }
 }
 

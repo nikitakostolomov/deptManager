@@ -25,6 +25,6 @@ public class SwaggerConfig {
             "/v2*/**",
             "/swagger-resources*/**",
             "/favicon.ico",
-            "/**",
+            "/login*/**",
     };
 }
