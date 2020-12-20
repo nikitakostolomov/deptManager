@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Builder(toBuilder = true)
 public class GroupPersonLink {
     @EmbeddedId
-    private GroupPersonLinkKey id;
+    private GroupPersonLinkKey id = new GroupPersonLinkKey();
 
     @ManyToOne
     @MapsId("person_id")

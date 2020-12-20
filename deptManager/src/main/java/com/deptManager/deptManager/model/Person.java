@@ -1,16 +1,19 @@
 package com.deptManager.deptManager.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder(toBuilder = true)
 public class Person {
     @Id
     @GeneratedValue(generator = "UUID")
@@ -31,6 +34,6 @@ public class Person {
     private Boolean isAdmin;
 
     @OneToMany(mappedBy = "person")
-    private List<GroupPersonLink> groupsList;
+    private List<GroupPersonLink> groupsList = new ArrayList<>();
 
 }
