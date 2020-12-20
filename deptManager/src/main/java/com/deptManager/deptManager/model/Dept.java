@@ -49,4 +49,6 @@ public class Dept {
     @JoinColumn(name = "groups_id",  foreignKey = @ForeignKey(name = "fk_dept_groups_id"))
     private Groups group;
 
+    private Status deptStatus;
+
 }

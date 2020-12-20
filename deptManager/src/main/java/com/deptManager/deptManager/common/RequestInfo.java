@@ -11,6 +11,7 @@ public class RequestInfo {
     public static final String APPROVE = "/approve";
     public static final String PAYER = "/payer";
     public static final String RECEIVER = "/receiver";
+    public static final String STATISTICS = "/statistics";
 
 
     public static final String GROUP_ID = "/{groupId}";
