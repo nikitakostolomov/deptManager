@@ -28,8 +28,10 @@ public class GroupsService {
 
     private final PersonService personService;
 
+    private final CommonService commonService;
+
     public Groups createGroup(String name, Authentication authentication) {
-        Person person = personService.getPersonFromContext(authentication);
+        Person person = commonService.getPersonFromContext(authentication);
 
         Groups group = new Groups();
         group.setName(name);
@@ -51,7 +53,7 @@ public class GroupsService {
     }
 
     public Groups addPersonToGroup(UUID groupId, UUID personId, Authentication authentication) {
-        Person requester = personService.getPersonFromContext(authentication);
+        Person requester = commonService.getPersonFromContext(authentication);
         checkIfPersonIsAdminAtGroup(requester, groupId);
         Person personToAdd = personService.getById(personId);
         Groups groupsWhereToAdd = getById(groupId);
@@ -84,7 +86,7 @@ public class GroupsService {
                 .build());
     }
 
-    private void checkIfPersonIsMember(Person person, UUID groupId) {
+    public void checkIfPersonIsMember(Person person, UUID groupId) {
         if (!getPersonGroupLink(person, groupId).isPresent()) {
             throw new GeneralException("Person is not a member of the group!");
         }
@@ -101,7 +103,7 @@ public class GroupsService {
     }
 
     public void deleteGroup(UUID groupId, Authentication authentication) {
-        Person requester = personService.getPersonFromContext(authentication);
+        Person requester = commonService.getPersonFromContext(authentication);
         checkIfPersonIsAdminAtGroup(requester, groupId);
         Groups groupToDelete = getById(groupId);
         groupToDelete.getParticipantsList()
@@ -120,7 +122,7 @@ public class GroupsService {
     }
 
     public Groups renameGroup(UUID groupId, String newName, Authentication authentication) {
-        Person requester = personService.getPersonFromContext(authentication);
+        Person requester = commonService.getPersonFromContext(authentication);
         checkIfPersonIsAdminAtGroup(requester, groupId);
         Groups groups = getById(groupId);
         groups.setName(newName);
@@ -129,14 +131,14 @@ public class GroupsService {
     }
 
     public Groups getGroupById(UUID groupId, Authentication authentication) {
-        Person requester = personService.getPersonFromContext(authentication);
+        Person requester = commonService.getPersonFromContext(authentication);
         checkIfPersonIsMember(requester, groupId);
         return getById(groupId);
     }
 
     // TODO: refactor when do dept functionality
     public Groups deletePersonFromGroup(UUID groupId, UUID personId, Authentication authentication) {
-        Person requester = personService.getPersonFromContext(authentication);
+        Person requester = commonService.getPersonFromContext(authentication);
         checkIfPersonIsAdminAtGroup(requester, groupId);
         Groups groups = getById(groupId);
         Person personToDelete = personService.getById(personId);
@@ -159,6 +161,6 @@ public class GroupsService {
                 .groupId(groupId)
                 .build());
 
-        return null;
+        return groups;
     }
 }

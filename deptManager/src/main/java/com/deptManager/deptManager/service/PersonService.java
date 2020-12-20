@@ -24,6 +24,8 @@ public class PersonService {
 
     private final PersonRepository personRepository;
 
+    private final CommonService commonService;
+
     private final PasswordEncoder passwordEncoder;
 
     public Optional<Person> getByLoginOptional(String login) {
@@ -48,7 +50,7 @@ public class PersonService {
     }
 
     public List<Groups> getAllGroupsOfUser(Authentication authentication) {
-        Person person = getPersonFromContext(authentication);
+        Person person = commonService.getPersonFromContext(authentication);
         return person.getGroupsList().stream()
                 .map(GroupPersonLink::getGroup)
                 .collect(Collectors.toList());
@@ -63,15 +65,4 @@ public class PersonService {
         return personRepository.findById(id).orElseThrow(() -> new GeneralException("User not found"));
     }
 
-
-    public Person getPersonFromContext(Authentication authentication) {
-        String usernameFromAuth = getUsernameFromAuth(authentication);
-        Person requester = getByLogin(usernameFromAuth);
-        return requester;
-    }
-
-    private String getUsernameFromAuth(Authentication authentication) {
-        return ((UserDetails) authentication.getPrincipal()).getUsername();
-
-    }
 }

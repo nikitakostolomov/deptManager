@@ -31,4 +31,8 @@ public class Groups {
     @Cascade(value = org.hibernate.annotations.CascadeType.DELETE)
     private List<GroupPersonLink> participantsList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "group")
+    @Cascade(value = org.hibernate.annotations.CascadeType.DELETE)
+    private List<Dept> depts;
+
 }

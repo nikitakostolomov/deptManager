@@ -1,7 +1,6 @@
 package com.deptManager.deptManager.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -12,6 +11,9 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
+@Builder(toBuilder = true)
+@NoArgsConstructor
+@AllArgsConstructor
 public class Dept {
     @Id
     @GeneratedValue(generator = "UUID")
@@ -37,8 +39,14 @@ public class Dept {
 
     private String comment;
 
-    private Boolean approvedBySender;
+    @Builder.Default
+    private Boolean approvedBySender = false;
 
-    private Boolean approvedByReceiver;
+    @Builder.Default
+    private Boolean approvedByReceiver = false;
+
+    @ManyToOne(cascade = javax.persistence.CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "groups_id",  foreignKey = @ForeignKey(name = "fk_dept_groups_id"))
+    private Groups group;
 
 }
