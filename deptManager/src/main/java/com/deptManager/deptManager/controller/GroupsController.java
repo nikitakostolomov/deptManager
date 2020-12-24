@@ -3,12 +3,14 @@ package com.deptManager.deptManager.controller;
 import com.deptManager.deptManager.common.DtoMapper;
 import com.deptManager.deptManager.common.RequestInfo;
 import com.deptManager.deptManager.dto.GroupDto;
+import com.deptManager.deptManager.dto.GroupPersonLinkDto;
 import com.deptManager.deptManager.service.GroupsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -34,6 +36,12 @@ public class GroupsController {
     public GroupDto getGroup(@PathVariable UUID groupId,
                                    Authentication authentication) {
         return DtoMapper.convertToClass(groupsService.getGroupById(groupId, authentication), GroupDto.class);
+    }
+
+    @GetMapping(RequestInfo.GROUP_ID + RequestInfo.PARTICIPANTS)
+    public List<GroupPersonLinkDto> getGroupParticipants(@PathVariable UUID groupId,
+                                                         Authentication authentication) {
+        return DtoMapper.convertList(groupsService.getGroupParticipants(groupId, authentication), GroupPersonLinkDto.class);
     }
 
     @DeleteMapping(RequestInfo.GROUP_ID)

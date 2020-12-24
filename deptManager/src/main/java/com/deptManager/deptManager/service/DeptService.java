@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,7 +30,7 @@ public class DeptService {
         Person receiver = commonService.getPersonFromContext(authentication);
         groupsService.checkIfPersonIsMember(receiver, groupId);
 
-        Person payer = personService.getById(deptDto.getReceiver());
+        Person payer = personService.getById(deptDto.getPayerId());
         groupsService.checkIfPersonIsMember(payer, groupId);
 
         Groups group = groupsService.getById(groupId);
@@ -87,7 +84,11 @@ public class DeptService {
     public List<Dept> filterDepts(UUID groupId, String status, Authentication authentication) {
         Groups group = groupsService.getGroupById(groupId, authentication);
         Status deptStatus = Status.valueOf(status.toUpperCase());
-        List<Dept> collect = group.getDepts().stream().filter(dept -> dept.getDeptStatus().equals(deptStatus)).collect(Collectors.toList());
+        List<Dept> collect = group.getDepts()
+                .stream()
+                .filter(dept -> dept.getDeptStatus().equals(deptStatus))
+                .sorted(Comparator.comparing(Dept::getCreatedAt).reversed())
+                .collect(Collectors.toList());
         return collect;
     }
 

@@ -65,4 +65,7 @@ public class PersonService {
         return personRepository.findById(id).orElseThrow(() -> new GeneralException("User not found"));
     }
 
+    public Person getPersonAccount(Authentication authentication) {
+        return commonService.getPersonFromContext(authentication);
+    }
 }

@@ -4,6 +4,7 @@ import com.deptManager.deptManager.common.DtoMapper;
 import com.deptManager.deptManager.common.RequestInfo;
 import com.deptManager.deptManager.dto.GroupDto;
 import com.deptManager.deptManager.dto.PersonDto;
+import com.deptManager.deptManager.model.Groups;
 import com.deptManager.deptManager.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +25,22 @@ public class PersonController {
 
     @GetMapping(RequestInfo.GROUPS)
     public List<GroupDto> getAllGroupsOfUser(Authentication authentication) {
-        return DtoMapper.convertList(personService.getAllGroupsOfUser(authentication), GroupDto.class);
+        List<Groups> allGroupsOfUser = personService.getAllGroupsOfUser(authentication);
+        for (Groups group : allGroupsOfUser){
+            System.out.println(group.getParticipantsList());
+        }
+        return DtoMapper.convertList(allGroupsOfUser, GroupDto.class);
     }
 
     @GetMapping()
     public List<PersonDto> searchByLogin(@RequestParam (defaultValue = RequestInfo.DEFAULT_SEARCH_VALUE)
                                                      String login){
         return DtoMapper.convertList(personService.searchByLogin(login), PersonDto.class);
+    }
+
+    @GetMapping(RequestInfo.ACCOUNT)
+    public PersonDto getPersonAccount(Authentication authentication){
+        return DtoMapper.convertToClass(personService.getPersonAccount(authentication), PersonDto.class);
     }
 
 }

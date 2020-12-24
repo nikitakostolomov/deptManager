@@ -13,6 +13,6 @@ public class DeptRequestDto {
 
     private String comment;
 
-    private UUID receiver;
+    private UUID payerId;
 
 }

@@ -136,6 +136,16 @@ public class GroupsService {
         return getById(groupId);
     }
 
+    public List<GroupPersonLink> getGroupParticipants(UUID groupId, Authentication authentication) {
+        Person requester = commonService.getPersonFromContext(authentication);
+        checkIfPersonIsMember(requester, groupId);
+        Groups byId = getById(groupId);
+        return byId.getParticipantsList()
+                .stream()
+                .filter(groupPersonLink -> !groupPersonLink.getPerson().getId().equals(requester.getId()))
+                .collect(Collectors.toList());
+    }
+
     // TODO: refactor when do dept functionality
     public Groups deletePersonFromGroup(UUID groupId, UUID personId, Authentication authentication) {
         Person requester = commonService.getPersonFromContext(authentication);
