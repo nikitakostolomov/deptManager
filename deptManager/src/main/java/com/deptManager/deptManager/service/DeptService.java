@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -92,15 +93,27 @@ public class DeptService {
         return collect;
     }
 
-    public List<DeptsShorten> findAllDeptsByRoleForStats(UUID groupId, Authentication authentication, boolean isPayer) {
-        Groups group = groupsService.getGroupById(groupId, authentication);
+    public List<DeptsShorten> findAllDeptsInAllGroups(Authentication authentication, boolean isPayer){
         Person personFromContext = commonService.getPersonFromContext(authentication);
+        List<Groups> groupsStream = personFromContext
+                .getGroupsList()
+                .stream()
+                .map(GroupPersonLink::getGroup)
+                .collect(Collectors.toList());
+        List<DeptsShorten> allDeptsInAllGroups = new ArrayList<>();
+        for (Groups groups: groupsStream){
+            allDeptsInAllGroups.addAll(findAllDeptsByRoleForStats(groups, personFromContext, isPayer ));
+        }
+        return allDeptsInAllGroups;
+    }
+
+    public List<DeptsShorten> findAllDeptsByRoleForStats(Groups group, Person personFromContext, boolean isPayer) {
         Map<Person, List<Dept>> personListMap;
         if (isPayer) {
             List<Dept> iAmPayer = group.getDepts()
                     .stream()
                     .filter(dept -> dept.getPayer().getId().equals(personFromContext.getId())
-                            && dept.getDeptStatus().equals(Status.IN_PROGRESS))
+                            && dept.getApprovedBySender().equals(false))
                     .collect(Collectors.toList());
 
             personListMap = iAmPayer.stream().collect(Collectors.groupingBy(Dept::getReceiver));
@@ -120,19 +133,34 @@ public class DeptService {
             int sum = depts.stream().map(Dept::getAmount).mapToInt(Integer::intValue).sum();
 
             calculatedDepts.add(
-                    new DeptsShorten(DtoMapper.convertToClass(person, PersonDto.class), deptIds, sum, groupId));
+                    new DeptsShorten(DtoMapper.convertToClass(person, PersonDto.class), deptIds, sum, group.getId(), group.getName()));
         }
         return calculatedDepts;
     }
 
-    public List<DeptsShorten> approveAllDeptsAsPayer(List<UUID> deptIds, UUID groupId, Authentication authentication) {
+    public List<DeptsShorten> approveAllDeptsAsPayer(List<UUID> deptIds, Authentication authentication) {
         deptIds.forEach(deptId -> approveDeptAsPayer(deptId, authentication));
-        return findAllDeptsByRoleForStats(groupId, authentication, true);
+        return findAllDeptsInAllGroups(authentication, true);
     }
 
-    public List<DeptsShorten> approveAllDeptsAsReceiver(List<UUID> deptIds, UUID groupId, Authentication authentication) {
-        deptIds.forEach(deptId -> approveDeptAsReceiver(deptId, authentication, false));
-        return findAllDeptsByRoleForStats(groupId, authentication, false);
+    public List<DeptsShorten> approveAllDeptsAsReceiver(List<UUID> deptIds,Authentication authentication) {
+        Person receiver = commonService.getPersonFromContext(authentication);
+        for (UUID deptId : deptIds) {
+            Dept dept = getDeptById(deptId);
+            if (dept.getReceiver().getId().equals(receiver.getId())) {
+                if (!dept.getApprovedBySender()) {
+                     break;
+                } else {
+                    dept.setApprovedByReceiver(true);
+                    dept.setDeptStatus(Status.COMPLETE);
+                    deptRepository.save(dept);
+                }
+            } else {
+
+                throw new GeneralException("You are not a receiver of this dept");
+            }
+        }
+        return findAllDeptsInAllGroups(authentication, false);
     }
 
     public List<Dept> findAllDeptsByRole(UUID groupId, Authentication authentication, boolean isPayer, String status) {
@@ -146,14 +174,32 @@ public class DeptService {
                     .stream()
                     .filter(dept -> dept.getPayer().getId().equals(personFromContext.getId())
                             && dept.getDeptStatus().equals(deptStatus))
+                    .sorted(Comparator.comparing(Dept::getCreatedAt).reversed())
                     .collect(Collectors.toList());
         } else {
             resultDepts = group.getDepts()
                     .stream()
                     .filter(dept -> dept.getReceiver().getId().equals(personFromContext.getId())
                             && dept.getDeptStatus().equals(deptStatus))
+                    .sorted(Comparator.comparing(Dept::getCreatedAt).reversed())
                     .collect(Collectors.toList());
         }
         return resultDepts;
+    }
+
+    public void deleteDept(UUID deptId, Authentication authentication) {
+        Person personFromContext = commonService.getPersonFromContext(authentication);
+        Dept deptById = getDeptById(deptId);
+        if (deptById.getReceiver().getId()!=personFromContext.getId()){
+            throw new GeneralException("You are not a receiver of this dept");
+        }
+        else {
+            if (deptById.getApprovedBySender()){
+                throw new GeneralException("You cant delete dept if it is already approved");
+            }
+            else {
+                deptRepository.deleteById(deptId);
+            }
+        }
     }
 }

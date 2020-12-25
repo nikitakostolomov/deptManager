@@ -25,6 +25,10 @@ public class GroupsController {
         return DtoMapper.convertToClass(groupsService.createGroup(name, authentication), GroupDto.class);
     }
 
+    @GetMapping
+    public List<GroupDto> getAllGroupsWhereAdmin(Authentication authentication){
+        return DtoMapper.convertList(groupsService.getAllGroupsWhereAdmin(authentication), GroupDto.class);
+    }
 
     @PostMapping(RequestInfo.GROUP_ID)
     public GroupDto addUserToGroup(@PathVariable UUID groupId, @RequestParam UUID personId,

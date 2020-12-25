@@ -20,4 +20,6 @@ public class DeptsShorten {
     private Integer sum;
 
     private UUID groupId;
+
+    private String groupName;
 }

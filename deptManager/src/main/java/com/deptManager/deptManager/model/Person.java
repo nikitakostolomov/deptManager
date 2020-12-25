@@ -35,7 +35,6 @@ public class Person {
     private Boolean isAdmin;
 
     @OneToMany(mappedBy = "person")
-    @Cascade(value = org.hibernate.annotations.CascadeType.DELETE)
     private List<GroupPersonLink> groupsList = new ArrayList<>();
 
 }

@@ -6,12 +6,14 @@ import com.deptManager.deptManager.model.Groups;
 import com.deptManager.deptManager.model.Person;
 import com.deptManager.deptManager.model.PersonRole;
 import com.deptManager.deptManager.model.compositeKeys.GroupPersonLinkKey;
+import com.deptManager.deptManager.repositories.DeptRepository;
 import com.deptManager.deptManager.repositories.GroupPersonLinkRepository;
 import com.deptManager.deptManager.repositories.GroupsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +22,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@Transactional
 public class GroupsService {
 
     private final GroupsRepository groupsRepository;
@@ -29,6 +32,8 @@ public class GroupsService {
     private final PersonService personService;
 
     private final CommonService commonService;
+
+    private final DeptRepository deptRepository;
 
     public Groups createGroup(String name, Authentication authentication) {
         Person person = commonService.getPersonFromContext(authentication);
@@ -170,7 +175,17 @@ public class GroupsService {
                 .personId(personId)
                 .groupId(groupId)
                 .build());
-
+        deptRepository.deleteAllByPayerIdOrReceiverId(personId);
         return groups;
+    }
+
+    public List<Groups> getAllGroupsWhereAdmin(Authentication authentication) {
+        Person requester = commonService.getPersonFromContext(authentication);
+        return requester.getGroupsList()
+                .stream()
+                .filter(groupPersonLink -> groupPersonLink.getPersonRole()
+                        .equals(PersonRole.ROLE_ADMIN))
+                .map(GroupPersonLink::getGroup)
+                .collect(Collectors.toList());
     }
 }

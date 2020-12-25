@@ -12,7 +12,7 @@ spring:
         current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
         temp:
           use_jdbc_metadata_defaults: false
-    show-sql: true
+    show-sql: false
     hibernate:
       ddl-auto: update
 

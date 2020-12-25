@@ -25,14 +25,9 @@ public class Groups {
     private String name;
 
     @OneToMany(mappedBy = "group")
-    private List<CommonGoal> commonGoals;
-
-    @OneToMany(mappedBy = "group")
-    @Cascade(value = org.hibernate.annotations.CascadeType.DELETE)
     private List<GroupPersonLink> participantsList = new ArrayList<>();
 
     @OneToMany(mappedBy = "group")
-    @Cascade(value = org.hibernate.annotations.CascadeType.DELETE)
     private List<Dept> depts;
 
 }

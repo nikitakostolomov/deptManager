@@ -45,7 +45,7 @@ public class Dept {
     @Builder.Default
     private Boolean approvedByReceiver = false;
 
-    @ManyToOne(cascade = javax.persistence.CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne( fetch = FetchType.EAGER)
     @JoinColumn(name = "groups_id",  foreignKey = @ForeignKey(name = "fk_dept_groups_id"))
     private Groups group;
 

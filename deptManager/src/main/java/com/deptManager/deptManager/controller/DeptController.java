@@ -43,26 +43,26 @@ public class DeptController {
         return DtoMapper.convertList(deptService.filterDepts(groupId, status, authentication), DeptDto.class);
     }
 
-    @GetMapping(RequestInfo.GROUP_ID + RequestInfo.STATISTICS + RequestInfo.PAYER)
-    public List<DeptsShorten> findAllDeptsWherePayerStats(@PathVariable UUID groupId,
+    @GetMapping( RequestInfo.STATISTICS + RequestInfo.PAYER)
+    public List<DeptsShorten> findAllDeptsWherePayerStats(
                                                           Authentication authentication) {
-        return deptService.findAllDeptsByRoleForStats(groupId, authentication, true);
+        return deptService.findAllDeptsInAllGroups(authentication, true);
     }
 
-    @GetMapping(RequestInfo.GROUP_ID + RequestInfo.STATISTICS + RequestInfo.RECEIVER)
-    public List<DeptsShorten> findAllDeptsWhereReceiverStats(@PathVariable UUID groupId,
+    @GetMapping(RequestInfo.STATISTICS + RequestInfo.RECEIVER)
+    public List<DeptsShorten> findAllDeptsWhereReceiverStats(
                                                              Authentication authentication) {
-        return deptService.findAllDeptsByRoleForStats(groupId, authentication, false);
+        return deptService.findAllDeptsInAllGroups(authentication, false);
     }
 
-    @PostMapping(RequestInfo.DEPT_ID + RequestInfo.APPROVE + RequestInfo.STATISTICS + RequestInfo.PAYER)
-    public List<DeptsShorten> approveAllDeptsAsPayer(@RequestBody List<UUID> deptIds, @RequestParam UUID groupId, Authentication authentication) {
-        return deptService.approveAllDeptsAsPayer(deptIds, groupId, authentication);
+    @PostMapping(RequestInfo.APPROVE + RequestInfo.STATISTICS + RequestInfo.PAYER)
+    public List<DeptsShorten> approveAllDeptsAsPayer(@RequestBody List<UUID> deptIds, Authentication authentication) {
+        return deptService.approveAllDeptsAsPayer(deptIds, authentication);
     }
 
-    @PostMapping(RequestInfo.DEPT_ID + RequestInfo.APPROVE + RequestInfo.STATISTICS + RequestInfo.RECEIVER)
-    public List<DeptsShorten> approveAllDeptsAsReceiver(@RequestBody List<UUID> deptIds, @RequestParam UUID groupId, Authentication authentication) {
-        return deptService.approveAllDeptsAsReceiver(deptIds, groupId, authentication);
+    @PostMapping( RequestInfo.APPROVE + RequestInfo.STATISTICS + RequestInfo.RECEIVER)
+    public List<DeptsShorten> approveAllDeptsAsReceiver(@RequestBody List<UUID> deptIds, Authentication authentication) {
+        return deptService.approveAllDeptsAsReceiver(deptIds, authentication);
     }
 
 
@@ -76,5 +76,11 @@ public class DeptController {
     public List<DeptDto> findAllDeptsWhereReceiver(@PathVariable UUID groupId,@RequestParam String status,
                                                    Authentication authentication) {
         return DtoMapper.convertList(deptService.findAllDeptsByRole(groupId, authentication, false, status), DeptDto.class);
+    }
+
+    @DeleteMapping(RequestInfo.DEPT_ID +"/del")
+    public void deleteDeptIfNotApproved(@PathVariable UUID deptId,
+                                            Authentication authentication) {
+        deptService.deleteDept(deptId, authentication);
     }
 }
