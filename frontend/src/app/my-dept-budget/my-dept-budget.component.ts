@@ -1,7 +1,6 @@
 import {Component, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {ManagerService} from "../manager.service";
-import {PaginationComponent} from "../pagination/pagination.component";
 import {IDept} from '../_interfaces/IDept';
 
 @Component({
@@ -17,8 +16,7 @@ export class MyDeptBudgetComponent implements OnInit {
     error = '';
     newDept:IDept;
     groupId;
-    @ViewChild(PaginationComponent, {static: false})
-    private pagination: PaginationComponent;
+  
 
     constructor(private managerService: ManagerService, private renderer: Renderer2) {
         this.formRequestDept = new FormGroup({

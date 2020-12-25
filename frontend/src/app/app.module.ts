@@ -24,7 +24,6 @@ import {ErrorInterceptor} from './_helpers/error.interceptor';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {NotFoundComponent} from './_static/not-found/not-found.component';
 import {HeaderComponent} from './header/header.component';
-import {PaginationComponent} from './pagination/pagination.component';
 import {ArchiveDocumentsComponent} from './archive-documents/archive-documents.component';
 import {MyDeptBudgetComponent } from './my-dept-budget/my-dept-budget.component';
 import { GroupManagmentComponent } from './group-managment/group-managment.component';
@@ -50,7 +49,6 @@ export class DefaultIntl extends OwlDateTimeIntl {
         LoadingSpinerComponent,
         LoginComponent,
         NotFoundComponent,
-        PaginationComponent,
         ArchiveDocumentsComponent,
         MyDeptBudgetComponent,
         GroupManagmentComponent,

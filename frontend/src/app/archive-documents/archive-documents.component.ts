@@ -1,7 +1,6 @@
 import {Component, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ManagerService} from "../manager.service";
-import {PaginationComponent} from "../pagination/pagination.component";
 import {IDept} from '../_interfaces/IDept';
 
 @Component({
@@ -21,8 +20,7 @@ export class ArchiveDocumentsComponent implements OnInit {
     errorReceiver ='';
     errorDeptDelete = '';
     submitted = false;
-    @ViewChild(PaginationComponent, {static: false})
-    private pagination: PaginationComponent;
+
 
     constructor(private managerService: ManagerService, private renderer: Renderer2) {
         this.formRequestDept = new FormGroup({
@@ -165,6 +163,7 @@ export class ArchiveDocumentsComponent implements OnInit {
 }
     deleteDept(deptId){
         this.resetErrors();
+        console.log(deptId)
         this.managerService.deleteDept(deptId).subscribe(res => {
                 if (res){
                     this.getDocuments(this.groupId);
