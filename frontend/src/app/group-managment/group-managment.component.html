@@ -1,0 +1,48 @@
+<div class="container-fluid">
+    <main class="row content">
+        <div class="col-3">
+            <app-left-navbar></app-left-navbar>
+        </div>
+        <div class="col-9 page">
+            <h2 class="headerHistory">Мои группы</h2>
+            <img src="../../../assets/img/hr.png" class="imgHR">
+            <br>
+            <div class="formMargin">
+                <form [formGroup]="formRequestDept" class="row g-3" (ngSubmit)="createGroup()">
+                    
+                    <div class="col-auto">
+                      <label for="name" >Название группы</label>
+                      <input type="text" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" class="form-control" formControlName="name" placeholder="Имя группы">
+                    </div>
+        
+                    <div class="col-auto">
+                      <button type="submit" class="btn btn-primary mb-3">Создать группу</button>
+                    </div>
+                  </form>
+                </div>
+                <br>
+                <br>
+            <div class="row elementWorkflow" *ngFor="let item of application" #parent>
+        
+                <div class="col-7">
+                    <p class="nameWorkflow">{{item.name}}</p>
+                </div>
+                <div class="col-3 text-right">
+                    <button type="button" class="btn btn-outline-secondary"
+                            (click)="child.inWork(buttonShow);" #buttonShow>Открыть
+                    </button>
+
+                </div>
+                <div class="col-12">
+                    <app-group-management-child #child [application]="item" [participants]="participants"
+                                              (closeEvent)="deleteApplication(parent)"></app-group-management-child>
+                </div>
+                <div class="alert alert-danger alertError" role="alert" *ngIf="error">
+                    {{error}}
+                </div>
+            </div>
+        </div>
+    </main>
+
+</div>
+

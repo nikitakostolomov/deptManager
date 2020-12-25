@@ -1,0 +1,119 @@
+<div class="container-fluid">
+    <div class="row content">
+        <div class="col-3">
+            <app-left-navbar></app-left-navbar>
+        </div>
+        <div class="col-9 page">
+            <h2 class="headerHistory">История переводов в группе</h2>
+            <img src="../../../assets/img/hr.png" class="imgHR">
+            <div class="row btnToggle">
+                <div class="col-12">
+                    <div class="btn-group btn-group-toggle">
+                        <label class="btn btn-outline-secondary active" [ngClass]="{active:statusWorkflow}">
+                            <input type="radio" name="options" id="option1" autocomplete="off" checked
+                                   (click)="changeCategory('in_progress')" #worflowRadio>Актуальные долги
+                        </label>
+                        <label class="btn btn-outline-secondary" [ngClass]="{active:!statusWorkflow}">
+                            <input type="radio" name="options" id="option2" autocomplete="off" checked
+                                   (click)="changeCategory('complete')" #financialRadio>История долгов
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="alert alert-danger alertError" role="alert" *ngIf="errorSender">
+              {{errorSender}}
+          </div>
+          <div class="alert alert-danger alertError" role="alert" *ngIf="errorReceiver">
+            {{errorReceiver}}
+        </div>
+        <div class="alert alert-danger alertError" role="alert" *ngIf="errorDeptDelete">
+          {{errorDeptDelete}}
+      </div>
+            <div class="formMargin">
+            <form [formGroup]="formRequestDept" class="row g-3" (ngSubmit)="addNewDept()">
+                
+                <div class="col-auto">
+                  <label for="amount" >Сумма</label>
+                  <input type="number" min="1" [ngClass]="{ 'is-invalid': submitted && f.amount.errors }" class="form-control" formControlName="amount" placeholder="Сумма возврата">
+                </div>
+                <div class="col-auto">
+                  <label for="comment" >За что</label>
+                  <input type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.comment.errors }"formControlName="comment" placeholder="Комментарий">
+                </div>
+                <div class="col-auto">
+                    <label for="payer">Кто должен</label>
+                    <select class="form-control" [ngClass]="{ 'is-invalid': submitted && f.payerId.errors }" formControlName="payerId">
+                        <option [ngValue]="item.person.id" *ngFor="let item of participants">
+                            {{item.person.firstName}} {{item.person.lastName}}</option>
+                    </select>
+                  </div>
+                <div class="col-auto">
+                  <button type="submit" class="btn btn-primary mb-3">Запросить долг</button>
+                </div>
+              </form>
+              <div class="alert alert-danger alertError" role="alert" *ngIf="error">
+                {{error}}
+            </div>
+            </div>
+
+            <div><button class="btn btn-primary mb-3"
+                (click)="getDeptsWherePayer()"> Должен я
+                </button>
+            <button class="btn btn-primary mb-3 filterButton"
+            (click)="getDeptsWhereReceiver()"> Должны мне
+                </button></div>
+             
+            <div class="row cardApplication elementWorkflow">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                          <th scope="col">Кто должен</th>
+                          <th scope="col">Кому</th>
+                          <th scope="col">За что</th>
+                          <th scope="col">Сумма</th>
+                          <th scope="col">Дата долга</th>
+                          <th scope="col">Вернул</th>
+                          <th scope="col">Получил</th>
+                          <th scope="col">Удалить</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of application; let i = index">
+                          <td>{{item.payer.firstName}} {{item.payer.lastName}}</td>
+                          <td>{{item.receiver.firstName}} {{item.receiver.lastName}}</td>
+                          <td>{{item.comment}}</td>
+                          <td>{{item.amount}}</td>
+                          <td>{{item.createdAt}}</td>
+                          
+                          <td>
+                            <div  *ngIf='!item.approvedBySender' class="text-center">
+                                <button class="btn btn-success"
+                                        (click)="approveDeptAsSender(item.id)"> Approve
+                                </button>
+                            </div>
+                            <div  *ngIf='item.approvedBySender' class="text-center">
+                                <img src="../../assets/img/approve.png" class="imgNav">
+                            </div>
+                          </td>
+                          <td> <div  *ngIf='!item.approvedByReceiver' class="text-center">
+                            <button class="btn btn-success"
+                                    (click)="approveDeptAsReceiver(item.id)"> Approve
+                            </button>
+                        </div>
+                        <div *ngIf='item.approvedByReceiver' class="text-center">
+                            <img src="../../assets/img/approve.png" class="imgNav">
+                        </div></td>
+                        <td>
+                          <div  *ngIf='!item.approvedBySender' class="text-center">
+                              <button class="btn btn-danger"
+                                      (click)="deleteDept(item.id)"> Delete
+                              </button>
+                          </div>
+                        </td>
+                        </tr>
+                      </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
+</div>

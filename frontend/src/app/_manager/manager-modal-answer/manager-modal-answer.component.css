@@ -1,0 +1,36 @@
+.documentsP{
+    margin-bottom: 0;
+}
+.inMassage{
+    width: 95%;
+    margin: 0 auto;
+}
+.labelPosition{
+    font-size: 19px;
+    color: black!important;
+}
+.labelPosition span{
+    font-size: 18px;
+    color: #343a40!important;
+}
+.toAnswerP{
+    margin-top: 1rem;
+}
+
+.liDocument {
+    font-size: 16px;
+    padding-left: 10px;
+    padding-right: 20px;
+}
+
+.input {
+    margin-bottom: 1rem;
+}
+
+.btn {
+    margin: 5px 20px 20px 0;
+}
+
+ul {
+    padding: 0;
+}

@@ -1,0 +1,48 @@
+<div class="container-fluid">
+    <div class="row content">
+        <div class="col-3">
+            <app-left-navbar></app-left-navbar>
+        </div>
+        <div class="col-9 page">
+            <h2 class="headerHistory">Статистика по всем группам</h2>
+            <img src="../../../assets/img/hr.png" class="imgHR">
+            <div class="row btnToggle">
+                
+            </div>
+            <div class="alert alert-danger alertError" role="alert" *ngIf="error">
+                {{error}}
+            </div>
+            <div><button class="btn btn-primary mb-3"
+                (click)="getAllDeptsWherePayer()"> Должен я
+                </button>
+            <button class="btn btn-primary mb-3 filterButton"
+            (click)="getAllDeptsWhereReceiver()"> Должны мне
+                </button></div>
+             
+            <div class="row cardApplication elementWorkflow">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+    
+                          <th scope="col">Кому</th>
+                          <th scope="col">Сумма</th>
+                          <th scope="col">В какой группе</th>
+                          <th scope="col">Approve</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of application; let i = index">
+                          <td>{{item.personDto.firstName}} {{item.personDto.lastName}}</td>
+                          <td>{{item.sum}}</td>
+                          <td>{{item.groupName}}</td>
+                          <td>
+                            <button class="btn btn-success text-center"
+                                    (click)="approveAllByRole(item.deptIds)"> Approve
+                            </button>
+                          </td>
+                      </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
+</div>

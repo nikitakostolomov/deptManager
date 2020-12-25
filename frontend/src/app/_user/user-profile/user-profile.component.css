@@ -1,0 +1,46 @@
+.container-fluid{
+    width: 95%;
+}
+.content{
+    margin-top: 1.5rem;
+}
+.page{
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 15px 30px;
+}
+h1{
+    font-size: 26px;
+    margin-bottom: 0;
+}
+p{
+    font-size: 18px;
+}
+.docHref{
+    font-size: 18px;
+    color: #1155cc;
+    text-decoration: none;
+    cursor: pointer;
+}
+.dataAnket{
+    font-size: 20px;
+    margin-top: 15px;
+}
+.custom-file{
+    width: 40%;
+}
+
+.btnSave {
+    margin-top: 15px;
+    margin-bottom: 60px;
+}
+
+.custom-file-input:lang(ru) ~ .custom-file-label::after {
+    content: "выбрать";
+}
+
+@media only screen and (max-width: 1000px) {
+    .custom-file {
+        width: 70%;
+    }
+}

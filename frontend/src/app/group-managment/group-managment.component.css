@@ -1,0 +1,56 @@
+.container-fluid{
+    width: 95%;
+}
+.content{
+    margin-top: 1.5rem;
+}
+.page{
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 15px 30px;
+}
+.elementWorkflow p{
+    font-size: 18px;
+}
+.nameWorkflow{
+    font-size: 20px;
+}
+
+.elementWorkflow {
+    background-color: white;
+    padding: 15px 0 10px 0;
+    border: 1px #e8e8e8 solid;
+    border-left: 10px #e1e1e1 solid;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.form-control-file {
+    margin: 20px 0 10px 0;
+}
+
+.btn {
+    margin-bottom: 15px;
+}
+
+.date {
+    font-size: 15px !important;
+}
+
+.imgHR {
+    margin-top: 0.7rem;
+    margin-bottom: 1rem;
+}
+
+.inputState {
+    width: 80%;
+    margin: 0px 0px 15px 0px;
+}
+
+.textArea {
+    width: 80%;
+    margin-top: 10px;
+}
+.alertError {
+    margin-top: 1rem;
+}

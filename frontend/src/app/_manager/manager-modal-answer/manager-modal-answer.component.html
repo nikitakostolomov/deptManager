@@ -1,0 +1,33 @@
+<div *ngIf="hide" class="inMassage">
+    <hr class="hrMessage">
+
+    <div class="labelPosition">Участники всего:
+        <p class="liDocument">{{application.participantsList.length}}</p>
+    </div>
+    <div>
+        <p class="labelPosition documentsP">Участники:</p>  
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                  <th scope="col">Логин</th>
+                  <th scope="col">Имя</th>
+                  <th scope="col">Фамилия</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of application.participantsList; let i = index">
+                  <td>{{item.person.login}}</td>
+                  <td>{{item.person.firstName}}</td>
+                  <td>{{item.person.lastName}}</td>
+                </tr>
+              </tbody>
+          </table>
+    </div>
+
+        <button class="btn btn-outline-secondary" 
+                (click)="sendGroupIdAndRedirect(application.id)" routerLink = '/groups/my-groups'>Перейти в группу
+        </button>
+     <button type="button" class="btn btn-outline-btn btn-outline-secondary" (click)="outProcessing()">Закрыть
+        </button>
+
+</div>

@@ -1,0 +1,35 @@
+<div class="container-fluid">
+    <main class="row content">
+        <div class="col-3">
+            <app-left-navbar></app-left-navbar>
+        </div>
+        <div class="col-9 page">
+            <h2 class="headerHistory">Мои группы</h2>
+            <img src="../../../assets/img/hr.png" class="imgHR">
+            <br>
+            <div class="row elementWorkflow" *ngFor="let item of incomingApplications" #parent>
+        
+                <div class="col-7">
+                    <p class="nameWorkflow">{{item.name}}</p>
+                </div>
+                <div class="col-3 text-right">
+                    <button type="button" class="btn btn-outline-secondary"
+                            (click)="child.inWork(buttonShow); inOutWork()" #buttonShow>Открыть
+                    </button>
+
+                </div>
+                <div class="col-12">
+                    <app-manager-modal-answer #child [application]="item"
+                                              (closeEvent)="deleteApplication(parent)"></app-manager-modal-answer>
+                </div>
+            </div>
+            <div class="row" *ngIf="!incomingApplications.length">
+                <div class="col-12">
+                    <p>Вас еще не пригласили ни в одну группу</p>
+                    <p>Но вы можете создать</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</div>

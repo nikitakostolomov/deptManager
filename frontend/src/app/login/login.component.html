@@ -1,0 +1,32 @@
+<div class="container bg">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-6 col-sm-10">
+            <div class="formLogin" *ngIf="isLoginForm; else forgotPassword">
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                    <p class="titleLogin text-info">Вход в личный кабинет</p>
+                    <input type="email" formControlName="username"
+                           [ngClass]="{ 'is-invalid': submitted && f.username.errors }" class="form-control inputLogin"
+                           placeholder="Логин">
+                    <input type="password" formControlName="password" class="form-control inputLogin lastInp"
+                           placeholder="пароль"
+                           [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
+                    
+                    <div class="alert alert-danger alertError" role="alert" *ngIf="error">
+                        {{error}}
+                    </div>
+                    <hr>
+                    <button type="submit" class="btn btn-outline-info btnSend" [disabled]="loading">
+                        <div class="spinner-border" role="status" *ngIf="loading">
+                            <span class="sr-only">Вход...</span>
+                        </div>
+                        Войти
+                    </button>
+                    
+                </form>
+                <button type="submit" class="btn btn-outline-info btnSend"  routerLink = '../registration' [disabled]="loading">
+                    Регистрация
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

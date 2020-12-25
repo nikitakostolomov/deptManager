@@ -1,0 +1,98 @@
+.link{
+    margin-top: 15px;
+}
+
+.link:last-child {
+    margin-bottom: 15px;
+}
+
+.navbar {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    line-height: 1.2;
+    width: 90%;
+}
+
+.regEmitent {
+    width: 80%;
+}
+
+.notification {
+    border-radius: 50%;
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    position: absolute;
+    display: block;
+    top: 25px;
+    right: 10px;
+    text-align: center;
+    color: #856404;
+}
+
+.notificationWorkflow {
+    border-radius: 50%;
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    position: absolute;
+    display: block;
+    top: 80px;
+    right: 10px;
+    text-align: center;
+    color: #856404;
+}
+
+.imgNav {
+    float: left;
+    margin-right: 10px;
+    max-width: 38px;
+    height: auto;
+}
+
+a {
+    color: #343a40;
+}
+
+a:hover {
+    color: #1155cc;
+    text-decoration: none;
+}
+.document-arrow-span{
+    font-size: 17px;
+}
+
+.autoTop {
+    padding-top: 0.5rem;
+
+}
+
+.imgNavAddUser {
+    margin-top: 0.5rem;
+}
+
+@media (max-width: 1400.98px) {
+    .document-arrow-span {
+        font-size: 15px;
+
+    }
+
+    .imgNav {
+        max-width: 32px;
+    }
+}
+
+@media (max-width: 1200.98px) {
+    .document-arrow-span {
+        font-size: 14px;
+
+    }
+
+    .imgNav {
+        max-width: 28px;
+    }
+}

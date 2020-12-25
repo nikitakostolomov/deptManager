@@ -1,0 +1,89 @@
+@import '~@fullcalendar/core/main.css';
+@import '~@fullcalendar/daygrid/main.css';
+@import "~ng-pick-datetime/assets/style/picker.min.css";
+@font-face {
+  font-family: 'Izhitsa';
+  src: url('assets/fonts/Izhitsa.eot');
+  src: local('Izhitsa'),
+  url('assets/fonts/Izhitsa.eot?#iefix') format('embedded-opentype'),
+  url('assets/fonts/Izhitsa.woff') format('woff'),
+  url('assets/fonts/Izhitsa.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('assets/fonts/Roboto.ttf')  format('truetype');
+}
+
+
+li {
+  list-style-type: none; /* Убираем маркеры */
+}
+body{
+  color: #343a40!important;
+  font-size: 16px;
+  font-family: 'Arimo', sans-serif;
+}
+ul {
+  list-style-type: none;
+}
+.blueElement{
+  color: #1155cc;
+}
+.HeaderCategory{
+  font-family: Roboto;
+  font-size: 24px;
+  margin: 1rem 0;
+  font-weight: 400;
+}
+
+.bgGrey{
+  background-color: #F8F9FA;
+}
+
+.content{
+  margin-top: 1.5rem;
+}
+.page{
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 15px 30px;
+}
+h1{
+  font-size: 26px;
+  margin-bottom: 0;
+}
+.headerHistory{
+  font-size: 26px;
+  margin-bottom: 0px;
+}
+.spinner-border{
+  width: 1rem;
+  height: 1rem;
+}
+.text-secondary {
+  color: #6c757d!important;
+}
+.mainBlock{
+  padding-bottom: 100px;
+}
+.hrefFile{
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    font-size: 16px !important;
+    color: #1155CC !important;
+}
+.hrefFile:hover {
+    text-decoration: underline !important;
+}
+
+.spanLabel {
+    font-size: 14px;
+}
+@media (max-width: 1199.98px) {
+    .headerHistory {
+        font-size: 22px;
+    }
+}

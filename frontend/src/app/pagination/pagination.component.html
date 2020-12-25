@@ -1,0 +1,14 @@
+<nav aria-label="page_navigation" *ngIf="showPagination">
+    <ul class="pagination">
+        <li [className]="disablePrevButton ? 'page-item disabled': 'page-item'">
+            <a class="page-link" tabindex="-1" (click)="prevPage()">&laquo;</a>
+        </li>
+        <li *ngFor="let item of arrayPage; let i = index"
+            [className]="isActive[i] ? 'page-item active' : 'page-item inactive'">
+            <a class="page-link" (click)="clickNumberPage(i)">{{item}}</a>
+        </li>
+        <li [className]="disableNextButton ? 'page-item disabled': 'page-item'">
+            <a class="page-link" (click)="nextPage()">&raquo;</a>
+        </li>
+    </ul>
+</nav>

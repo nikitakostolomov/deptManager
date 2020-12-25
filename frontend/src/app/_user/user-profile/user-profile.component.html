@@ -1,0 +1,27 @@
+<div class="container-fluid">
+    <main class="row content">
+        <div class="col-3">
+            <app-left-navbar></app-left-navbar>
+        </div>
+        <div class="col-9 page">
+            <div class="row">
+                <div class="col-12">
+                    <h1>Личный кабинет</h1>
+                    <img src="../../../assets/img/hr.png">
+                    <div *ngIf="anket">
+                        <p *ngIf="anket.firstName">
+                            <span> Имя: </span>{{anket.firstName}}</p>
+                        <p *ngIf="anket.lastName">
+                            <span>Фамилия: </span><b>{{anket.lastName}}</b></p>
+                        <p *ngIf="anket.login"><span>Логин: </span><b>{{anket.login}}</b></p>
+                    
+                    </div>
+                </div>
+            </div>
+
+        
+        </div>
+    </main>
+
+</div>
+

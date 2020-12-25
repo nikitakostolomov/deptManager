@@ -1,0 +1,61 @@
+/*.loginForm{*/
+/*    width: 50%;*/
+/*    margin-top: 100px;*/
+/*}*/
+.bg {
+}
+
+.inputLogin[placeholder] {
+    font-weight: 500;
+}
+
+.inputLogin {
+    border-radius: 2px;
+    margin-bottom: 1rem;
+    background-color: #E6E6E6;
+    height: 3rem;
+    padding-left: 20px;
+    border: 0px;
+    font-weight: 500;
+}
+.lastInp{
+    margin-bottom: 0.5rem;
+}
+.formLogin {
+    width: 80%;
+    margin: 50px auto 0 auto;
+}
+
+.titleLogin {
+    text-align: center;
+    font-size: 1.7rem;
+}
+
+.btnSend {
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.selectpicker {
+    width: 100%;
+}
+
+.key {
+    float: left;
+}
+
+.textReset {
+    font-size: 1.1em;
+}
+
+.forgotPasswordLink {
+    font-size: 1.2rem;
+}
+
+.alertError {
+    margin-top: 1rem;
+}
+
+.is-invalid {
+    border: 1px solid #dc3545;
+}

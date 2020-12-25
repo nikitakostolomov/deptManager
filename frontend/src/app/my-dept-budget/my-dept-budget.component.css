@@ -1,0 +1,42 @@
+.container-fluid {
+    width: 95%;
+}
+
+.elementWorkflow p {
+    font-size: 18px;
+}
+
+.nameWorkflow {
+    font-size: 20px;
+}
+
+.elementWorkflow {
+    background-color: white;
+    padding: 15px 0 10px 0;
+    border: 1px #e8e8e8 solid;
+    border-left: 10px #e1e1e1 solid;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.date {
+    font-size: 15px !important;
+}
+
+.imgHR {
+    margin-top: 0.7rem;
+    margin-bottom: 1rem;
+}
+
+.btnToggle {
+    margin-bottom: 10px;
+}
+
+
+.formMargin {
+    margin-bottom: 50px;
+}
+
+.filterButton {
+    margin-left: 30px;
+}

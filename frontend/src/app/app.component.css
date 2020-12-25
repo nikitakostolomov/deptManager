@@ -1,0 +1,37 @@
+.container-fluid{
+    width: 95%;
+}
+.spinner-border{
+    width: 1rem;
+    height: 1rem;
+}
+.content{
+    margin-top: 1.5rem;
+}
+.page{
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 15px 30px;
+}
+h1{
+    font-size: 26px;
+    margin-bottom: 0;
+}
+p{
+    font-size: 18px;
+}
+.docHref{
+    font-size: 18px;
+    color: #1155cc;
+    text-decoration: none;
+}
+.dataAnket{
+    font-size: 20px;
+    margin-top: 15px;
+}
+.custom-file {
+    width: 30%;
+}
+.mainBlock{
+    padding-bottom: 100px;
+}
